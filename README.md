@@ -1,12 +1,49 @@
-# React + Vite
+# Collab Notes — Client (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Collaborative notes frontend built with React and Vite. Connects to the backend for REST APIs and uses Socket.IO for realtime note updates and active user presence.
 
-Currently, two official plugins are available:
+## Requirements
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Node.js 18+
 
-## Expanding the ESLint configuration
+## Setup
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Configure environment (optional): create a `.env` file with:
+   ```bash
+   VITE_API_URL=http://localhost:8000/
+   ```
+   - Defaults to `https://collab-notes-server.onrender.com/` if not set.
+
+## Scripts
+
+- `npm run dev`: start Vite dev server
+- `npm run build`: production build
+- `npm run preview`: preview built app
+- `npm run lint`: run ESLint
+
+## How it connects to the API
+
+- Base URL is defined in `src/api.js`:
+  ```js
+  const API_URL = import.meta.env.VITE_API_URL || 'https://collab-notes-server.onrender.com/';
+  export const api = axios.create({ baseURL: API_URL });
+  ```
+
+Ensure the trailing slash in `VITE_API_URL` (e.g., `http://localhost:8000/`).
+
+## Development
+
+1. Start the backend (see `../server/README.md`).
+2. Start the client dev server:
+   ```bash
+   npm run dev
+   ```
+3. Open the printed localhost URL.
+
+## Deploy
+
+- Set `VITE_API_URL` in your hosting provider env settings to point at your backend.
